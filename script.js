@@ -1,10 +1,11 @@
-const statusDisplay = document.querySelector('.game-status');
+    const statusDisplay = document.querySelector('.game-status');
 const cells = document.querySelectorAll('.cell');
 const restartBtn = document.querySelector('.restart-btn');
 
 let gameActive = true;
 let currentPlayer = "X";
 let gameState = ["", "", "", "", "", "", "", "", ""];
+let scores = { X: 0, O: 0 };
 
 const winningConditions = [
     [0, 1, 2],
@@ -59,6 +60,8 @@ function handleResultValidation() {
 
     if (roundWon) {
         statusDisplay.textContent = winningMessage();
+        scores[currentPlayer]++;
+        updateScoreboard();
         gameActive = false;
         return;
     }
@@ -76,6 +79,11 @@ function handleResultValidation() {
 function handlePlayerChange() {
     currentPlayer = currentPlayer === "X" ? "O" : "X";
     statusDisplay.textContent = currentPlayerTurn();
+}
+
+function updateScoreboard() {
+    document.getElementById('scoreX').textContent = scores.X;
+    document.getElementById('scoreO').textContent = scores.O;
 }
 
 function handleRestartGame() {
